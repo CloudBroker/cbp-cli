@@ -1,0 +1,57 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" default="create_zip" name="pack-cli">
+
+    <property name="src.dir" location="src"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="usr.dir" location="usr"/>
+    <property name="build.dir" location="build"/>
+    <property name="dist.dir" location="dist"/>
+    <property name="cli.name" value="CloudbrokerCLI"/>
+    <property name="cli.version" value="1.2.1c"/>
+    <property name="cli.jar" value="${cli.name}-${cli.version}.jar"/>
+    <property name="cli.zip" value="${cli.name}-${cli.version}.zip"/>
+
+    <path id="cli_classpath">
+      <fileset dir="${lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+    </path>
+
+    <target name="compile" depends="clean">
+    	<ivy:cleancache />
+    	<ivy:retrieve />
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+            <classpath refid="cli_classpath"/>
+        </javac>
+    </target>
+
+    <target name="create_jar" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <pathconvert refid="cli_classpath" property="jar.classpath" pathsep=" " dirsep="/">
+            <map from="${lib.dir}" to="lib"/>
+        </pathconvert>
+        <jar destfile="${dist.dir}/${cli.jar}">
+            <fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Main-Class" value="com.cloudbroker.platform.cli.CLI"/>
+                <attribute name="Class-Path" value="${jar.classpath}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="create_zip" depends="create_jar">
+        <zip destfile="${dist.dir}/${cli.zip}">
+            <fileset dir="${dist.dir}" includes="${cli.jar}"/>
+            <fileset dir="." includes="cbp.properties,cbp.sh,LICENSE.txt,README.txt"/>
+            <zipfileset dir="${lib.dir}" prefix="lib"/>
+        </zip>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${dist.dir}" excludes="${cli.name}-*.jar,${cli.name}-*.zip"/>
+        </delete>
+    </target>
+
+</project>
