@@ -44,14 +44,10 @@ CloudBroker welcomes rational contributions as well as bug/issue reports from ev
   Project management
 * Andrey Sereda <<andrey.sereda@scaletools.com>>: 
   Lead developer, maintainer
-* Maxim Malgin <<svkmax@gmail.com>>:
-  Contribution in Tags, Fees and Costs management
-* Arthur Karganyan <<artur.karganyan@scaletools.com>>:  
-  Contribution in code cleanup and optimization
 
 ## Licensing
 
-Copyright 2013 CloudBroker GmbH, Zurich, Switzerland
+Copyright 2014 CloudBroker GmbH, Zurich, Switzerland
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -67,4 +63,3 @@ limitations under the License.
 
 A copy of the license is available in the repository's [LICENSE](https://github.com/CloudBroker/cbp-java-api/blob/master/LICENSE) file.
 Please also see the accompanying [NOTICE](https://github.com/CloudBroker/cbp-java-api/blob/master/NOTICE) file.
-
